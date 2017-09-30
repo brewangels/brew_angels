@@ -1,3 +1,5 @@
 class Campaign < ApplicationRecord
-  monetize :goal
+  belongs_to :brewery
+
+  monetize :goal_cents
 end

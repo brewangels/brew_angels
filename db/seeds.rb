@@ -9,4 +9,4 @@ AdminUser.create!(email: 'admin@example.com', password: 'password', password_con
 
 require 'factory_girl'
 
-FactoryGirl.create(:beer_campaign)
+FactoryGirl.create(:campaign)
