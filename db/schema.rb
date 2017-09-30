@@ -55,10 +55,10 @@ ActiveRecord::Schema.define(version: 20170930155245) do
     t.datetime "deadline"
     t.integer "goal_cents", default: 0, null: false
     t.string "goal_currency", default: "EUR", null: false
-    t.bigint "breweries_id"
+    t.bigint "brewery_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["breweries_id"], name: "index_beer_campaigns_on_breweries_id"
+    t.index ["brewery_id"], name: "index_beer_campaigns_on_brewery_id"
   end
 
   create_table "breweries", force: :cascade do |t|
@@ -102,6 +102,6 @@ ActiveRecord::Schema.define(version: 20170930155245) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "beer_campaigns", "breweries", column: "breweries_id"
+  add_foreign_key "beer_campaigns", "breweries"
   add_foreign_key "growth_campaigns", "breweries", column: "breweries_id"
 end

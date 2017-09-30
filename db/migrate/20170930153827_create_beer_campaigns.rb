@@ -8,7 +8,7 @@ class CreateBeerCampaigns < ActiveRecord::Migration[5.1]
       t.text :long_description
       t.timestamp :deadline
       t.monetize :goal
-      t.references :breweries, foreign_key: true
+      t.references :brewery, foreign_key: true
 
       t.timestamps
     end
