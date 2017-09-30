@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20170930174631) do
   end
 
   create_table "feedbacks", force: :cascade do |t|
+    t.bigint "beer_id"
     t.text "q1"
     t.text "q2"
     t.text "q3"
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20170930174631) do
     t.text "q8"
     t.text "q9"
     t.text "final"
+    t.index ["beer_id"], name: "index_feedbacks_on_beer_id"
   end
 
   create_table "growth_campaigns", force: :cascade do |t|

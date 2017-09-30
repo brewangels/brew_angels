@@ -1,6 +1,7 @@
 class CreateFeedbacksTable < ActiveRecord::Migration[5.1]
   def change
     create_table :feedbacks do |t|
+      t.references :beer
       t.text :q1
       t.text :q2
       t.text :q3
