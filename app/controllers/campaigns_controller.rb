@@ -1,6 +1,10 @@
 class CampaignsController < ApplicationController
+  def show(id)
+    @campaign = Campaign.find(id)
+  end
+
   def index
-    @campaigns = BeerCampaign.all
+    @campaigns = Campaign.all
     render
   end
 end

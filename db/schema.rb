@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930174631) do
+ActiveRecord::Schema.define(version: 20170930175043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,21 +46,6 @@ ActiveRecord::Schema.define(version: 20170930174631) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
-  create_table "beer_campaigns", force: :cascade do |t|
-    t.string "name"
-    t.string "beer_type"
-    t.string "city"
-    t.string "short_description"
-    t.text "long_description"
-    t.datetime "deadline"
-    t.integer "goal_cents", default: 0, null: false
-    t.string "goal_currency", default: "EUR", null: false
-    t.bigint "brewery_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["brewery_id"], name: "index_beer_campaigns_on_brewery_id"
-  end
-
   create_table "beers", force: :cascade do |t|
     t.string "name"
     t.string "untappd_id"
@@ -82,6 +67,21 @@ ActiveRecord::Schema.define(version: 20170930174631) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "campaigns", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "type"
+    t.string "short_description"
+    t.text "long_description"
+    t.datetime "deadline"
+    t.integer "goal_cents", default: 0, null: false
+    t.string "goal_currency", default: "EUR", null: false
+    t.bigint "brewery_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brewery_id"], name: "index_campaigns_on_brewery_id"
+  end
+
   create_table "feedbacks", force: :cascade do |t|
     t.bigint "beer_id"
     t.text "q1"
@@ -95,20 +95,6 @@ ActiveRecord::Schema.define(version: 20170930174631) do
     t.text "q9"
     t.text "final"
     t.index ["beer_id"], name: "index_feedbacks_on_beer_id"
-  end
-
-  create_table "growth_campaigns", force: :cascade do |t|
-    t.string "name"
-    t.string "city"
-    t.string "short_description"
-    t.text "long_description"
-    t.datetime "deadline"
-    t.integer "goal_cents", default: 0, null: false
-    t.string "goal_currency", default: "EUR", null: false
-    t.bigint "breweries_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["breweries_id"], name: "index_growth_campaigns_on_breweries_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -128,6 +114,5 @@ ActiveRecord::Schema.define(version: 20170930174631) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "beer_campaigns", "breweries"
-  add_foreign_key "growth_campaigns", "breweries", column: "breweries_id"
+  add_foreign_key "campaigns", "breweries"
 end

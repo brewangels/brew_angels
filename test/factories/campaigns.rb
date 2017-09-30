@@ -1,9 +1,8 @@
 FactoryGirl.define do
-  factory :beer_campaign do
+  factory :campaign do
     brewery
 
     name "German IPA"
-    beer_type "IPA"
     city "Berlin"
     short_description "short description"
     long_description "long description long description long description long description long description long description long description long description long description long description long description"
