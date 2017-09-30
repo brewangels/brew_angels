@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170930151651) do
+ActiveRecord::Schema.define(version: 20170930155245) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,6 +46,45 @@ ActiveRecord::Schema.define(version: 20170930151651) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "beer_campaigns", force: :cascade do |t|
+    t.string "name"
+    t.string "beer_type"
+    t.string "city"
+    t.string "short_description"
+    t.text "long_description"
+    t.datetime "deadline"
+    t.integer "goal_cents", default: 0, null: false
+    t.string "goal_currency", default: "EUR", null: false
+    t.bigint "breweries_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breweries_id"], name: "index_beer_campaigns_on_breweries_id"
+  end
+
+  create_table "breweries", force: :cascade do |t|
+    t.string "name"
+    t.string "short_description"
+    t.string "untappd_id"
+    t.float "rating"
+    t.string "location"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "growth_campaigns", force: :cascade do |t|
+    t.string "name"
+    t.string "city"
+    t.string "short_description"
+    t.text "long_description"
+    t.datetime "deadline"
+    t.integer "goal_cents", default: 0, null: false
+    t.string "goal_currency", default: "EUR", null: false
+    t.bigint "breweries_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["breweries_id"], name: "index_growth_campaigns_on_breweries_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -63,4 +102,6 @@ ActiveRecord::Schema.define(version: 20170930151651) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "beer_campaigns", "breweries", column: "breweries_id"
+  add_foreign_key "growth_campaigns", "breweries", column: "breweries_id"
 end
